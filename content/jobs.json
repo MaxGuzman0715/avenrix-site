@@ -1,0 +1,52 @@
+[
+  {
+    "status": "draft",
+    "slug": "weekend-store-associate-austin",
+    "title": "Weekend Store Associate",
+    "field": "Retail & Sales",
+    "employmentType": ["PART_TIME", "CONTRACTOR"],
+    "hoursPerWeek": "12–16",
+    "schedule": "Saturdays and Sundays, 10am–6pm",
+    "location": { "remote": false, "city": "Austin", "region": "TX", "country": "US" },
+    "pay": { "min": 17, "max": 20, "unit": "HOUR", "currency": "USD" },
+    "summary": "Help a busy clothing boutique on weekends: greet customers, keep the floor tidy, and run the register.",
+    "responsibilities": [
+      "Welcome customers and help them find sizes and styles",
+      "Restock and fold merchandise, keep displays neat",
+      "Process sales and returns at the register"
+    ],
+    "requirements": [
+      "Some retail or customer-facing experience",
+      "Available both weekend days",
+      "Comfortable on your feet for a full shift"
+    ],
+    "niceToHave": ["Visual merchandising experience", "Spanish speaker"],
+    "datePosted": "2026-10-01",
+    "validThrough": "2026-11-30"
+  },
+  {
+    "status": "draft",
+    "slug": "remote-bilingual-chat-support",
+    "title": "Bilingual Chat Support Agent (Spanish/English)",
+    "field": "Customer Support",
+    "employmentType": ["PART_TIME", "CONTRACTOR"],
+    "hoursPerWeek": "15–20",
+    "schedule": "Weekday evenings, 5pm–9pm Central",
+    "location": { "remote": true, "country": "US" },
+    "pay": { "min": 18, "max": 22, "unit": "HOUR", "currency": "USD" },
+    "summary": "Answer customer questions over chat and email for an online retailer, in Spanish and English.",
+    "responsibilities": [
+      "Reply to chat and email tickets within agreed response times",
+      "Resolve order, shipping and return questions",
+      "Log issues clearly so the team can follow up"
+    ],
+    "requirements": [
+      "Fluent written Spanish and English",
+      "At least one year in customer service",
+      "Reliable internet and a quiet place to work"
+    ],
+    "niceToHave": ["Experience with Zendesk or Gorgias"],
+    "datePosted": "2026-10-01",
+    "validThrough": "2026-11-30"
+  }
+]

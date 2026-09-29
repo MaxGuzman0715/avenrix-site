@@ -1,0 +1,13 @@
+{
+  "name": "avenrix-site",
+  "private": true,
+  "type": "module",
+  "description": "Avenrix Services website (avenrixservices.com)",
+  "scripts": {
+    "build": "node build.mjs",
+    "preview": "node build.mjs --preview-drafts && node serve.mjs",
+    "start": "node build.mjs && node serve.mjs",
+    "deploy": "node build.mjs && npx wrangler pages deploy dist --project-name avenrix"
+  },
+  "engines": { "node": ">=18" }
+}

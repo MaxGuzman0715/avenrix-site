@@ -1,0 +1,88 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;600&family=JetBrains+Mono:wght@600&display=swap">
+<style>
+body{margin:0;background:#F3F4EF;font-family:Figtree,sans-serif;color:#0F1614;width:1600px}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+.c{padding:34px 26px;border-right:1px solid rgba(15,22,20,.12);display:flex;flex-direction:column;gap:18px}
+.n{font:600 13px/1 "JetBrains Mono";letter-spacing:.12em;color:#1F7A6C}
+h2{font:750 26px/1.1 "Bricolage Grotesque";margin:0}
+.big{height:220px;display:grid;place-items:center;background:#fff;border-radius:18px}
+.big svg{width:150px;height:150px}
+.dark{height:120px;display:flex;align-items:center;justify-content:center;gap:14px;background:#0B1F1D;border-radius:18px;color:#E9F2EE;font:800 30px/1 "Bricolage Grotesque";letter-spacing:.14em}
+.dark svg{width:54px;height:54px}
+.small{display:flex;align-items:center;gap:18px}
+.small svg:nth-child(1){width:16px;height:16px}.small svg:nth-child(2){width:32px;height:32px}.small svg:nth-child(3){width:64px;height:64px}
+.lock{display:flex;align-items:center;gap:12px;font:800 26px/1 "Bricolage Grotesque";letter-spacing:.14em}
+.lock svg{width:40px;height:40px}
+p{margin:0;font-size:15px;line-height:1.5;color:#44504B}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute">
+ <defs>
+  <!-- 1 Capacity Grid -->
+  <symbol id="grid" viewBox="0 0 100 100">
+   <g>
+    <rect x="6" y="6" width="26" height="26" rx="7" fill="none" stroke="currentColor" stroke-opacity=".28" stroke-width="3"/>
+    <rect x="37" y="6" width="26" height="26" rx="7" fill="#2FA38F"/>
+    <rect x="68" y="6" width="26" height="26" rx="7" fill="none" stroke="currentColor" stroke-opacity=".28" stroke-width="3"/>
+    <rect x="6" y="37" width="26" height="26" rx="7" fill="#F4A62A"/>
+    <rect x="37" y="37" width="26" height="26" rx="7" fill="#F4A62A"/>
+    <rect x="68" y="37" width="26" height="26" rx="7" fill="#F4A62A"/>
+    <rect x="6" y="68" width="26" height="26" rx="7" fill="#F4A62A"/>
+    <rect x="37" y="68" width="26" height="26" rx="7" fill="none" stroke="currentColor" stroke-opacity=".28" stroke-width="3"/>
+    <rect x="68" y="68" width="26" height="26" rx="7" fill="#F4A62A"/>
+   </g>
+  </symbol>
+  <!-- 2 Open Hour -->
+  <symbol id="hour" viewBox="0 0 100 100">
+   <path d="M50 50 L50 12 A38 38 0 1 0 82.9 31 Z" fill="currentColor"/>
+   <path d="M56 44 L56 6 A38 38 0 0 1 88.9 25 Z" fill="#F4A62A"/>
+   <circle cx="50" cy="50" r="6" fill="#2FA38F"/>
+  </symbol>
+  <!-- 3 Converge -->
+  <symbol id="conv" viewBox="0 0 100 100">
+   <path d="M14 92 C 22 60, 34 30, 50 12" fill="none" stroke="#2FA38F" stroke-width="12" stroke-linecap="round"/>
+   <path d="M86 92 C 78 60, 66 30, 50 12" fill="none" stroke="#F4A62A" stroke-width="12" stroke-linecap="round"/>
+   <circle cx="50" cy="64" r="9" fill="currentColor"/>
+  </symbol>
+  <!-- 4 Open Door -->
+  <symbol id="door" viewBox="0 0 100 100">
+   <path d="M18 90 V46 A32 32 0 0 1 82 46 V90 Z" fill="currentColor"/>
+   <path d="M38 90 V54 A12 12 0 0 1 62 54 V90 Z" fill="#F4A62A"/>
+   <path d="M38 90 L62 90 L78 99 L22 99 Z" fill="#F4A62A" opacity=".45"/>
+  </symbol>
+  <!-- 5 Filled Gap -->
+  <symbol id="gap" viewBox="0 0 100 100">
+   <path d="M8 92 L40 8 L52 8 L30 92 Z" fill="currentColor" transform="translate(0,0)"/>
+   <path d="M92 92 L60 8 L48 8 L70 92 Z" fill="#2FA38F"/>
+   <rect x="38" y="58" width="24" height="24" rx="5" fill="#F4A62A"/>
+  </symbol>
+ </defs>
+</svg>
+<div class="grid">
+ <div class="c"><span class="n">01</span><h2>Capacity Grid</h2>
+  <div class="big" style="color:#0F1614"><svg><use href="#grid"/></svg></div>
+  <div class="dark"><svg style="color:#E9F2EE"><use href="#grid"/></svg>AVENRIX</div>
+  <div class="small" style="color:#0F1614"><svg><use href="#grid"/></svg><svg><use href="#grid"/></svg><svg><use href="#grid"/></svg></div>
+  <p>A week of time slots. The filled slots spell an A; the empty ones are capacity still waiting. The teal slot at the top is the match.</p></div>
+ <div class="c"><span class="n">02</span><h2>Open Hour</h2>
+  <div class="big" style="color:#0F1614"><svg><use href="#hour"/></svg></div>
+  <div class="dark"><svg style="color:#E9F2EE"><use href="#hour"/></svg>AVENRIX</div>
+  <div class="small" style="color:#0F1614"><svg><use href="#hour"/></svg><svg><use href="#hour"/></svg><svg><use href="#hour"/></svg></div>
+  <p>A clock face with one slice of time lifted out and turned into something. Spare hours, put to work.</p></div>
+ <div class="c"><span class="n">03</span><h2>Converge</h2>
+  <div class="big" style="color:#0F1614"><svg><use href="#conv"/></svg></div>
+  <div class="dark"><svg style="color:#E9F2EE"><use href="#conv"/></svg>AVENRIX</div>
+  <div class="small" style="color:#0F1614"><svg><use href="#conv"/></svg><svg><use href="#conv"/></svg><svg><use href="#conv"/></svg></div>
+  <p>Available and needed rise from opposite sides and meet at the top. The dot is Avenrix in the middle, where they connect.</p></div>
+ <div class="c"><span class="n">04</span><h2>Open Door</h2>
+  <div class="big" style="color:#0F1614"><svg><use href="#door"/></svg></div>
+  <div class="dark"><svg style="color:#E9F2EE"><use href="#door"/></svg>AVENRIX</div>
+  <div class="small" style="color:#0F1614"><svg><use href="#door"/></svg><svg><use href="#door"/></svg><svg><use href="#door"/></svg></div>
+  <p>An arched A with light coming through the doorway. Opportunity opening from something that was already there.</p></div>
+ <div class="c" style="border-right:0"><span class="n">05</span><h2>Filled Gap</h2>
+  <div class="big" style="color:#0F1614"><svg><use href="#gap"/></svg></div>
+  <div class="dark"><svg style="color:#E9F2EE"><use href="#gap"/></svg>AVENRIX</div>
+  <div class="small" style="color:#0F1614"><svg><use href="#gap"/></svg><svg><use href="#gap"/></svg><svg><use href="#gap"/></svg></div>
+  <p>Two strokes form the A, and a single block drops into the empty space between them. The gap is filled.</p></div>
+</div>
+</body></html>
