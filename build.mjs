@@ -398,20 +398,39 @@ if (cfg.formEndpoint) {
 }
 if (cfg.cloudflareAnalyticsToken) connect += " https://cloudflareinsights.com";
 const scriptSrc = "'self'" + (cfg.cloudflareAnalyticsToken ? " https://static.cloudflareinsights.com" : "");
-write("_headers", `/*
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: DENY
-  Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
-  Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'self'; script-src ${scriptSrc}; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src ${connect}; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
+const HEADERS = [
+  ["/*", {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+    "Content-Security-Policy": `default-src 'self'; script-src ${scriptSrc}; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src ${connect}; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'`,
+  }],
+  ["/assets/*", { "Cache-Control": "public, max-age=31536000, immutable" }],
+  ["/assets/img/*", { "Cache-Control": "public, max-age=2592000" }],
+];
 
-/assets/*
-  Cache-Control: public, max-age=31536000, immutable
+// Cloudflare Pages and Netlify read dist/_headers.
+write("_headers", HEADERS.map(([p, h]) => `${p}\n${Object.entries(h).map(([k, v]) => `  ${k}: ${v}`).join("\n")}`).join("\n\n") + "\n");
 
-/assets/img/*
-  Cache-Control: public, max-age=2592000
-`);
+// Vercel reads vercel.json from the repository root before building, so it is written there and committed.
+const vercel = {
+  $schema: "https://openapi.vercel.sh/vercel.json",
+  framework: null,
+  buildCommand: "npm run build",
+  outputDirectory: "dist",
+  headers: HEADERS.map(([p, h]) => ({
+    source: p === "/*" ? "/(.*)" : p.replace("/*", "/(.*)"),
+    headers: Object.entries(h).map(([key, value]) => ({ key, value })),
+  })),
+};
+const vercelJson = JSON.stringify(vercel, null, 2) + "\n";
+const vercelPath = r("vercel.json");
+if (!fs.existsSync(vercelPath) || fs.readFileSync(vercelPath, "utf8") !== vercelJson) {
+  fs.writeFileSync(vercelPath, vercelJson);
+  if (!process.env.VERCEL && !process.env.CF_PAGES) warnings.push("vercel.json was updated. Commit it so Vercel uses the new settings.");
+}
 
 // ---------- report ----------
 if (!cfg.formEndpoint) warnings.unshift("formEndpoint is empty in site.config.json. The form runs in preview mode and SENDS NOTHING. See README step 2.");

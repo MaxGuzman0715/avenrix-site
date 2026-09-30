@@ -75,6 +75,8 @@ Cloudflare Pages is free, fast, includes HTTPS, and reads the `_headers` securit
 
 **Job expiry:** a job disappears after its `validThrough` date only when the site is rebuilt. If you go a while without pushing, trigger a rebuild in Cloudflare (**Deployments → Retry deployment**), or set up a Deploy Hook (**Settings → Builds → Deploy hooks**) to run on a schedule.
 
+**Vercel instead of Cloudflare:** import the GitHub repository and leave every build setting empty. `vercel.json` in the repository tells Vercel to run `npm run build`, publish `dist`, and apply the security headers. The build regenerates `vercel.json` from the same settings as `_headers`; if a build says it changed, commit it.
+
 Without GitHub: run `npm run build` and drag the `dist` folder into **Workers & Pages → Create → Pages → Upload assets**. Netlify works the same way (https://app.netlify.com/drop).
 
 ### 4. Keep nexa@avenrixservices.com working when you move DNS
