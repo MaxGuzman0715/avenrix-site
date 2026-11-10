@@ -58,6 +58,46 @@
     });
   }
 
+  /* ---------- proposal form (services page) ---------- */
+  var pf = $("proposalForm");
+  if (pf){
+    $("pStarted").value = String(Date.now());
+    pf.addEventListener("submit", function(e){
+      e.preventDefault();
+      var name = $("pName"), email = $("pEmail"), desc = $("pDesc"), consent = $("pConsent"), ok = true, firstBad = null;
+      ["epName","epEmail","epDesc","epConsent"].forEach(function(id){ $(id).textContent = ""; });
+      if (!name.value.trim()){ $("epName").textContent = "Add your name so we know who to reply to."; ok = false; firstBad = firstBad || name; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())){ $("epEmail").textContent = "Enter an email like you@company.com."; ok = false; firstBad = firstBad || email; }
+      if (!desc.value.trim()){ $("epDesc").textContent = "A sentence or two about the work is enough."; ok = false; firstBad = firstBad || desc; }
+      if (!consent.checked){ $("epConsent").textContent = "Please agree to the Privacy Policy and Terms so we can reply."; ok = false; firstBad = firstBad || consent; }
+      if (!ok){ firstBad.focus(); return; }
+
+      // The sheet has one free-text column for requests, so the selections travel with the description.
+      $("pAbout").value = "Service: " + $("pService").value + " | Engagement: " + $("pModel").value + " | Timeline: " + $("pTimeline").value + "\n\n" + desc.value.trim();
+      var first = name.value.trim().split(/\s+/)[0];
+      var done = function(title, text){
+        $("pBody").hidden = true; $("pDoneTitle").textContent = title; $("pDoneText").textContent = text; $("pDone").hidden = false;
+        $("pDone").scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"center"});
+      };
+      var endpoint = pf.dataset.endpoint || "";
+      if (!endpoint){ done("Thanks, " + first + ".", "This is a preview, so your request wasn't sent."); return; }
+      var btn = $("pSubmit"), label = btn.firstChild.textContent;
+      btn.disabled = true; btn.firstChild.textContent = "Sending… ";
+      var body = new URLSearchParams(new FormData(pf));
+      body.set("page", location.pathname);
+      fetch(endpoint, {method:"POST", body: body})
+        .then(function(r){ if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+        .then(function(res){
+          if (!res || !res.ok) throw new Error((res && res.error) || "Rejected");
+          done("Request received, " + first + ".", "We'll reply to " + email.value.trim() + " within two business days to set up a short call.");
+        })
+        .catch(function(){
+          btn.disabled = false; btn.firstChild.textContent = label;
+          $("epConsent").textContent = "That didn't go through. Check your connection and try again, or email us directly.";
+        });
+    });
+  }
+
   /* Everything below is home page only. */
   if (!$("joinForm")) return;
 
@@ -279,9 +319,12 @@
   form.addEventListener("submit", function(e){
     e.preventDefault();
     var name = $("fName"), email = $("fEmail"), consent = $("fConsent"), ok = true, firstBad = null;
-    ["eName","eEmail","eConsent"].forEach(function(id){ $(id).textContent = ""; });
+    var resume = $("fResume"), resumeUrl = resume.value.trim();
+    if (resumeUrl && !/^https?:\/\//i.test(resumeUrl)) resumeUrl = "https://" + resumeUrl;
+    ["eName","eEmail","eResume","eConsent"].forEach(function(id){ $(id).textContent = ""; });
     if (!name.value.trim()){ $("eName").textContent = "Add your name so we know who to contact."; ok = false; firstBad = firstBad || name; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())){ $("eEmail").textContent = "Enter an email like you@example.com."; ok = false; firstBad = firstBad || email; }
+    if (!hire && !/^https:\/\/[^\s.\/]+\.[^\s]{2,}$/i.test(resumeUrl)){ $("eResume").textContent = resume.value.trim() ? "That doesn't look like a link. Paste the full address, like https://drive.google.com/..." : "Paste a link to your résumé (Google Drive, Dropbox, OneDrive or LinkedIn)."; ok = false; firstBad = firstBad || resume; }
     if (!consent.checked){ $("eConsent").textContent = "Please agree to the Privacy Policy and Terms so we can contact you."; ok = false; firstBad = firstBad || consent; }
     if (!ok){ firstBad.focus(); return; }
 
@@ -294,6 +337,7 @@
     btn.disabled = true; btn.firstChild.textContent = "Sending… ";
     var body = new URLSearchParams(new FormData(form));
     body.set("page", location.pathname + location.search);
+    if (!hire) body.set("about", "Résumé: " + resumeUrl + "\n\n" + $("fAbout").value.trim());
     fetch(ENDPOINT, {method:"POST", body: body})
       .then(function(r){ if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then(function(res){

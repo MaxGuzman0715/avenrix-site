@@ -119,7 +119,7 @@ ${extraHead}
         <li><a href="/#work">Work types</a></li>
         <li><a href="/#how">How it works</a></li>
         <li><a href="/jobs/">Open work</a></li>
-        <li><a href="/#trust">Trust</a></li>
+        <li><a href="/services/">Services</a></li>
         <li><a href="/#faq">FAQ</a></li>
       </ul>
     </nav>
@@ -136,7 +136,7 @@ ${body}
         <button class="copyable" type="button" id="copyMail" data-email="${esc(cfg.email)}" title="Copy email address"><span class="addr">${esc(cfg.email)}</span> <span id="copyState">Copy</span></button>
       </div>
       <div><h4>Work</h4><ul><li><a href="/#work">Work types</a></li><li><a href="/jobs/">Open roles</a></li><li><a href="/#join">Join the network</a></li></ul></div>
-      <div><h4>Company</h4><ul><li><a href="/#idea">The idea</a></li><li><a href="/#trust">Trust</a></li><li><a href="/#business">For businesses</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="/#idea">The idea</a></li><li><a href="/#trust">Trust</a></li><li><a href="/services/">Services</a></li><li><a href="/#business">For businesses</a></li></ul></div>
       <div><h4>Help</h4><ul><li><a href="/#how">How it works</a></li><li><a href="/#faq">FAQ</a></li><li><a href="/privacy/">Privacy Policy</a></li><li><a href="/terms/">Terms</a></li></ul></div>
     </div>
     <div class="wordmark" id="wordmark" aria-hidden="true">AVENRIX</div>
@@ -190,6 +190,19 @@ write("index.html", layout({
   pathname: "/",
   body: home,
   extraHead: jsonld(orgLd) + "\n" + jsonld(siteLd),
+}));
+
+// ---------- services ----------
+let services = fs.readFileSync(r("src", "services.html"), "utf8")
+  .split("{{EMAIL}}").join(esc(cfg.email))
+  .split("{{FORM_ENDPOINT}}").join(esc(cfg.formEndpoint));
+const svcLeft = services.match(/{{[A-Z_]+}}/g);
+if (svcLeft) throw new Error("Unfilled placeholders in services.html: " + svcLeft.join(", "));
+write("services/index.html", layout({
+  title: "Services",
+  description: "Software development, data engineering, AI training and evaluation, QA and operations support, scoped and delivered by the Avenrix team.",
+  pathname: "/services/",
+  body: services,
 }));
 
 // ---------- jobs index ----------
@@ -282,7 +295,7 @@ for (const j of openJobs) {
         <dt>Apply by</dt><dd>${esc(new Date(j.validThrough + "T12:00:00Z").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }))}</dd>
       </dl>
       <a class="btn amber" href="${apply}">Apply for this role <span class="arr">→</span></a>
-      <small>Takes about two minutes. No résumé needed.</small>
+      <small>Takes about two minutes. Have a link to your résumé ready.</small>
     </aside>
   </div></section>
 </main>`,
@@ -382,7 +395,7 @@ write("404.html", layout({
 }));
 
 // ---------- SEO + hosting files ----------
-const urls = ["/", "/jobs/", ...openJobs.filter(isLive).map(jobUrl), "/privacy/", "/terms/"];
+const urls = ["/", "/services/", "/jobs/", ...openJobs.filter(isLive).map(jobUrl), "/privacy/", "/terms/"];
 write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((u) => `  <url><loc>${site}${u}</loc><lastmod>${today}</lastmod></url>`).join("\n")}

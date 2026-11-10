@@ -165,7 +165,7 @@
       <h2 class="rv" style="font-size:clamp(36px,4.6vw,62px);margin-block:18px 18px">Tell us what you have. We find where it fits.</h2>
       <p class="lede rv" style="--d:100ms">Write it the way you'd say it to a friend. Avenrix turns it into a profile clients can match against.</p>
       <ol class="steps" id="steps" style="margin-top:34px">
-        <li class="active"><span class="num">1</span><div><h3>Describe your capacity</h3><p>What you do, what you've done, and when you're free. No résumé formatting needed.</p></div></li>
+        <li class="active"><span class="num">1</span><div><h3>Describe your capacity</h3><p>What you do, what you've done, and when you're free, plus a link to your résumé.</p></div></li>
         <li><span class="num">2</span><div><h3>Get matched</h3><p>We compare your skills, hours and location with open work from verified clients.</p></div></li>
         <li><span class="num">3</span><div><h3>Work and get paid</h3><p>You agree to the scope, hours and rate before you start. Payment follows the agreement.</p></div></li>
       </ol>
@@ -254,16 +254,28 @@
 
 <!-- BUSINESS -->
 <section class="biz" id="business">
-  <div class="wrap">
-    <div>
+  <div class="wrap biz2">
+    <div class="biz-head">
       <span class="eyebrow" style="color:var(--ink)">For businesses</span>
-      <h2 style="margin-top:16px">Have work that needs people?</h2>
-      <p>Tell us the role, the hours and the location. We bring you people who match, ready to start.</p>
+      <h2 style="margin-top:16px">Two ways to get work done.</h2>
+      <p>Add people to your team, or hand the whole project to ours. Either way, you get one point of contact and clear terms before anything starts.</p>
     </div>
-    <div class="right">
-      <a class="btn magnet" href="#join" id="bizBtn">Hire through Avenrix <span class="arr">→</span></a>
-      <small>Or write to {{EMAIL}}</small>
+    <div class="biz-cards">
+      <div class="biz-card rv">
+        <span class="biz-k">01 · Staffing</span>
+        <h3>Hire people through Avenrix</h3>
+        <p>Tell us the role, the hours and the location. We bring you matched people, ready to start.</p>
+        <a class="btn magnet" href="#join" id="bizBtn">Request people <span class="arr">→</span></a>
+      </div>
+      <div class="biz-card dark rv" style="--d:100ms">
+        <span class="biz-k">02 · Delivery</span>
+        <h3>Hand the project to our team</h3>
+        <p>Software, data, AI and QA work, scoped, delivered and handed over by the Avenrix team.</p>
+        <div class="biz-chips"><span>Software</span><span>Data</span><span>AI evaluation</span><span>QA &amp; testing</span></div>
+        <a class="btn amber magnet" href="/services/">Explore services <span class="arr">→</span></a>
+      </div>
     </div>
+    <small class="biz-mail">Or write to {{EMAIL}}</small>
   </div>
 </section>
 
@@ -275,7 +287,7 @@
       <h2 class="rv">Put your hours to work.</h2>
       <p class="lede rv" style="--d:100ms">It takes about two minutes. We'll reach out when work matches your skills and schedule.</p>
       <ul>
-        <li>No résumé needed to start</li>
+        <li>Résumé required (a link is fine)</li>
         <li>Pick the days and hours you want</li>
         <li>Remote, in-person, or both</li>
       </ul>
@@ -305,6 +317,7 @@
             <div class="range"><input type="range" id="fHours" name="hours" min="2" max="40" step="1" value="15" aria-labelledby="hrsLab"><output id="hoursOut" for="fHours">15 hrs</output></div></div>
           <div class="f full work-only"><span class="lab">Days you're free</span>
             <div class="days" id="days"></div></div>
+          <div class="f full work-only"><label for="fResume">Résumé link</label><input type="url" id="fResume" inputmode="url" autocomplete="url" placeholder="Google Drive, Dropbox, OneDrive or LinkedIn link"><span class="err" id="eResume"></span></div>
           <div class="f full"><label for="fAbout" id="aboutLab">What do you do?</label><textarea id="fAbout" name="about" placeholder="For example: six years in retail management, fluent in Spanish, free on weekends."></textarea></div>
         </div>
         <label class="consent" for="fConsent"><input type="checkbox" id="fConsent" name="consent" value="yes"><span>I agree to the <a href="/privacy/">Privacy Policy</a> and <a href="/terms/">Terms</a>, and to Avenrix contacting me about work.</span></label>
@@ -334,7 +347,7 @@
       <details open><summary>Is it free to join?<span class="pm"></span></summary><p>Yes. Creating a profile and getting matched costs nothing.</p></details>
       <details><summary>What kind of work is on Avenrix?<span class="pm"></span></summary><p>Part-time, project-based and seasonal work across seven fields: tech and data, retail and sales, customer support, operations and admin, creative and content, logistics and field work, and specialist roles.</p></details>
       <details><summary>How many hours do I need to offer?<span class="pm"></span></summary><p>As many as you actually have. Some roles need a few hours a week, others need full shifts. You set your availability, and we only match you with work that fits it.</p></details>
-      <details><summary>Do I need a résumé?<span class="pm"></span></summary><p>No. Describe what you do and what you've done in plain words. You can add documents later if a role asks for them.</p></details>
+      <details><summary>Do I need a résumé?<span class="pm"></span></summary><p>Yes. Paste a link to your résumé when you apply: Google Drive, Dropbox, OneDrive or your LinkedIn profile all work. If it's a file, set sharing to "anyone with the link can view" so our team can open it.</p></details>
       <details><summary>How do I get paid?<span class="pm"></span></summary><p>The rate and schedule are agreed before any work begins. Payment goes through Avenrix according to that agreement.</p></details>
       <details><summary>Where is the work?<span class="pm"></span></summary><p>Remote roles are open to most locations. In-person roles depend on where clients are hiring, and your location helps us show you what's nearby.</p></details>
     </div>
