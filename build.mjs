@@ -303,10 +303,10 @@ for (const j of openJobs) {
 }
 
 // ---------- legal ----------
-const address = cfg.businessAddress || "[add your business address]";
-const law = cfg.governingLaw || "[add your state]";
-if (!cfg.businessAddress) warnings.push("businessAddress is empty in site.config.json. The Privacy Policy and Terms show a placeholder.");
-if (!cfg.governingLaw) warnings.push("governingLaw is empty in site.config.json. The Terms show a placeholder.");
+const addressLine = cfg.businessAddress ? `<br>${esc(cfg.businessAddress)}` : "";
+const lawText = cfg.governingLaw ? `the laws of ${esc(cfg.governingLaw)}` : `the laws of the U.S. state in which ${esc(cfg.companyName)} is organized`;
+if (!cfg.businessAddress) warnings.push("businessAddress is empty in site.config.json. The address line is left out of the Privacy Policy and Terms.");
+if (!cfg.governingLaw) warnings.push("governingLaw is empty in site.config.json. The Terms use generic governing-law wording.");
 const updated = new Date(today + "T12:00:00Z").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
 const legalPage = (slug, heading, desc, html) => write(`${slug}/index.html`, layout({
   title: heading, description: desc, pathname: `/${slug}/`,
@@ -354,7 +354,7 @@ legalPage("privacy", "Privacy Policy", `How ${cfg.companyName} collects, uses an
     <h2>Changes</h2>
     <p>If we change this policy, we'll update the date at the top of this page.</p>
     <h2>Contact</h2>
-    <p>${esc(cfg.companyName)}<br>${esc(address)}<br><a href="mailto:${esc(cfg.email)}">${esc(cfg.email)}</a></p>
+    <p>${esc(cfg.companyName)}${addressLine}<br><a href="mailto:${esc(cfg.email)}">${esc(cfg.email)}</a></p>
 `);
 
 legalPage("terms", "Terms of Use", `The terms for using the ${cfg.brand} website.`, `
@@ -376,11 +376,11 @@ legalPage("terms", "Terms of Use", `The terms for using the ${cfg.brand} website
     <h2>Disclaimers</h2>
     <p>The site is provided "as is". To the extent the law allows, we disclaim warranties of any kind and aren't liable for indirect or consequential losses arising from your use of the site.</p>
     <h2>Governing law</h2>
-    <p>These terms are governed by the laws of ${esc(law)}, without regard to conflict-of-law rules.</p>
+    <p>These terms are governed by ${lawText}, without regard to conflict-of-law rules.</p>
     <h2>Changes</h2>
     <p>We may update these terms. The date at the top of this page shows when they last changed.</p>
     <h2>Contact</h2>
-    <p>${esc(cfg.companyName)}<br>${esc(address)}<br><a href="mailto:${esc(cfg.email)}">${esc(cfg.email)}</a></p>
+    <p>${esc(cfg.companyName)}${addressLine}<br><a href="mailto:${esc(cfg.email)}">${esc(cfg.email)}</a></p>
 `);
 
 // ---------- 404 ----------
